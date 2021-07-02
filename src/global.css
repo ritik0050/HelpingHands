@@ -1,0 +1,53 @@
+.zw{
+    background-color: #262626;
+}
+.fonts{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px;
+    color:red;
+}
+.qq{
+float:right;
+}
+.hd{
+    display: flex;
+   background-color:rgb(41, 38, 38);
+   color:#ffc107;
+   border-radius: 10px 10px 0px 0px;
+}
+.q{
+    background-color: white;
+}
+.zx{
+    width:410px;
+}
+
+.bdy{
+  
+    background-color: rgb(59, 54, 54);
+    height: 270px;
+}
+.abc{
+    height: 380px;
+    width: 700px;
+    margin:auto;
+    padding-top: 30px;
+    
+}
+.ft{
+    display: flex;
+    background-color:rgb(59, 54, 54);
+    color:red;
+    border-radius: 0px 0px 10px 10px; 
+}
+.bttn{
+    width: 200px;
+}
+.as{
+    display: none;
+}
+.body{
+  
+    background-color: rgb(59, 54, 54);
+    height: 355px;
+}

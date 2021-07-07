@@ -1,27 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
 import { Redirect, Route, Switch } from 'react-router';
+import Header from './components/Header';
 import Dashboard from './components/Dashboard';
-import Login from './components/Login';
-import LoginMail from './components/LoginMail';
-import Register from './components/Register';
+import Education from './components/Education';
+import { useState } from 'react';
+
 
 
 function App() {
+  const[response,updatez]=useState([]);
+  
+    function getData(data)
+    {
+updatez(data);
+
+    }
   return (
     <div>
   
-  <Dashboard></Dashboard>
+  <Header></Header>
+ <Route path="/">
+   <Redirect to="/dashboard"></Redirect>
+ </Route>
+  <Route path="/donate/education">
+<Education response={response}></Education>
+  </Route>
 
-  <Route path="/login" exact>
-  <Login></Login>
+  <Route path="/dashboard">
+<Dashboard callBackData={getData}></Dashboard>
 </Route>
-<Route path="/loginmail" exact>
-  <LoginMail></LoginMail>
-</Route>
-<Route path="/register">
-<Register></Register>
-</Route>
+ 
+
+
+
 
   </div>
   );

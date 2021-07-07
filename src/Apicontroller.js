@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {link} from './serverurl';
 let abc=link();
 
@@ -45,6 +46,7 @@ return fetch(abc+"/register",req).then((data)=>
         
 data.json()
       
+
     )
    
   
@@ -91,5 +93,27 @@ data.json()
     )
    
   
+    
 }
 
+export function Imagepass()
+{
+    let z={
+       
+        "categoryName":"All",
+        "categoryID":1
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(z),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/category",req).then((data)=>
+     
+      data.json()
+       
+     )
+}

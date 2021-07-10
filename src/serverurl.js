@@ -1,4 +1,4 @@
-let z="http://splendid-wombat-44.loca.lt";
+let z="http://smooth-grasshopper-50.loca.lt";
 export function link()
 {
     return z;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 
 import {link} from './serverurl';
 let abc=link();
@@ -117,3 +118,33 @@ export function Imagepass()
        
      )
 }
+export function ImagePass(a,b,c,d,e,f,g) {
+    let formData = new FormData();
+    console.log("hiii");
+    formData.append('fileFullWidth', a);
+    formData.append('fileThumbnail', b);
+    formData.append('filePortrait', c);
+    formData.append('fileSquare', d);
+    formData.append('fileHero', e);
+    formData.append('userID', 1);
+    formData.append('token', "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJwcml5YW5zaGlnYWhsYXdhdDExQGdtYWlsLmNvbSIsImlhdCI6MTYyNTQwNjY3MywiZXhwIjoxNjI1NDA3NjczfQ.QRD4Tjw1_7wgIAxEdnM3bgyNbqwd_oaxNFzAVYZMuH8");
+    formData.append('category', 1);
+    formData.append('item_desc', f);
+    formData.append('item_name', g);
+console.log(f);
+console.log(formData)
+    const config = {
+           headers: {
+        'Content-Type': 'multipart/form-data',
+        "Bypass-Tunnel-Reminder":"abc",
+        "Access-Control-Allow-Origin": "*",
+        "Accept": "application/json",
+        }
+    }
+  return axios.post(abc+"/uploadImage", formData,config)
+  .then(response => {
+    return response;
+    console.log(response);
+  })
+  
+  }

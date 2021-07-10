@@ -1,16 +1,21 @@
 import './../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './../global.css'
-import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from "react";
-import Modal from 'react-modal';
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
+import {useHistory} from 'react-router-dom'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import Form  from 'react-bootstrap/Form';
 import { LoginPass, MailLogin, VerifyOtp, SignUp } from './../Apicontroller';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 function Header() {
   const [show, updateshow] = useState("a1");
   const [show1, updateshow1] = useState("a2");
   const [lgn, updatelgn] = useState(false);
   const [lgnlm, updatelgnlm] = useState(false);
   const [sgnup, updatesgnup] = useState(false);
+  const history=new useHistory();
   function modalOpen1(event) {
     event.preventDefault();
     updatelgn(true);
@@ -43,7 +48,8 @@ function Header() {
   }
 
   function fetchData() {
-
+    console.log("aagya");
+    console.log(email+" "+pass)
     LoginPass(email, pass).then((response) => {
       console.log("response");
       console.log(response);
@@ -56,6 +62,8 @@ function Header() {
         updatelgn(false);
         updateshow("a2");
         updateshow1("a1");
+        let name = response.data.name;
+      localStorage.setItem("UserName",name);
       }
 
     });
@@ -111,7 +119,7 @@ function Header() {
     updatephn(event.target.value);
   }
   function fetchData1() {
-
+      console.log(emailsu+" "+name); 
     SignUp(emailsu, name, passsu, phn).then((response) => {
       console.log("response");
       console.log(response);
@@ -122,141 +130,146 @@ function Header() {
 
     });
   }
+  function openDashboard()
+  {
+  history.push("/user/dashboardcard")
+  }
+  function openHome()
+  {
+    history.push("/user/dashboard");
+  }
 
   return (
-    <div>
+    <div className="fixed-header">
+   <Navbar fixed="top" />
+   <Navbar collapseOnSelect className="zw" expand="lg" bg="dark" variant="dark">
+ 
+  <Navbar.Text><span className="fonts">Helping</span><span className="fonts jkl">Hands</span></Navbar.Text>
+  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+  
+  <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
    
-      <nav class="navbar navbar-expand-lg navbar-light zw">
-        <div class="container-fluid">
-          <span class="fonts">Helping Hands</span>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <Nav>
 
-            </ul>
-            <form class="d-flex">
-              <div className={show1}>
-                <button class="btn btn-primary btnrgs" onClick={modalOpensup}>SIGNUP</button>
-                &nbsp;
-                <span className="lgnbtn" onClick={modalOpen1}>LOGIN</span>
-                &nbsp;
-              </div>
-              <div className={show}>
-                <Link to="/home" style={{ textDecoration: 'none' }}>
-                  <span className="lgnbtn">HOME</span>
-                </Link>
-                &nbsp;
-                <Link to="/dashboard"  style={{ textDecoration: 'none' }}>
-                <span className="lgnbtn">DASHBOARD</span>
-                </Link>
-                <Link to="/" style={{ textDecoration: 'none',  }}>
-                  <ExitToAppIcon className="lgout" style={{ fontSize: 40, animation : 'none' }}></ExitToAppIcon>
-                </Link>
-              </div>
-            </form>
-          </div>
-        </div>
-      </nav>
+      <Nav.Link className={show1}  onClick={modalOpensup}><span className="nav-hvr">SIGNUP</span></Nav.Link>
+      <Nav.Link className={show1}  onClick={modalOpen1}> <span className="nav-hvr">LOGIN</span></Nav.Link>
+      <Nav.Link className={show} onClick={openHome}><span className="nav-hvr">HOME</span></Nav.Link>
+      <Nav.Link className={show} onClick={openDashboard}><span className="nav-hvr">DASHBOARD</span></Nav.Link>
+      <Nav.Link className={show}><span className="nav-hvr">LOG OUT</span> </Nav.Link>
+
+    </Nav>
+  </Navbar.Collapse>
+
+</Navbar>
       {/* LOGIN MODAL */}
-      <Modal isOpen={lgn} className="abc">
-        <div class="modal-header hd">
-          <h3 class="modal-title">Login</h3>
+    
+      <Modal show={lgn}  onHide={close} animation={false} >
+   
+      <Modal.Header closeButton className="hd">
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="bdy">
+        <br></br>
+      
+        <Form>
+  <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Label></Form.Label>
+    <Form.Control type="email" placeholder="Enter email" onChange={setemail} />
+  
+  </Form.Group>
 
-          <button type="button" class="btn-close q" data-bs-dismiss="modal" aria-label="Close" onClick={close}></button>
-
-        </div>
-        <div class="modal-body bdy">
-          <br></br><br></br>
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={setemail} />
-            <label for="floatingInput">Email address</label>
-          </div>
-          <br></br>
-          <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" onChange={setpassword} />
-            <label for="floatingPassword">Password</label>
-          </div>
-          <br></br>
-          <center>{res}</center>
-        </div>
-        <div class="modal-footer ft">
-
-          <button type="button" class="btn btn-outline-warning bttn" onClick={modalOpenlm}>Forgot password</button>
-
-          <button type="button" class="btn btn-warning bttn" data-dismiss="modal" onClick={fetchData}>Login</button>
-        </div>
+  <Form.Group  controlId="formBasicPassword">
+   
+    <Form.Control type="password" placeholder="Password" onChange={setpassword} />
+  </Form.Group>
+</Form>       
+         </Modal.Body>
+        <Modal.Footer className="ft">
+          <Button variant="secondary" onClick={modalOpenlm}>
+            Forgot Password
+          </Button>
+          <Button variant="warning" onClick={fetchData}>
+          Login
+          </Button>
+        </Modal.Footer>
 
       </Modal>
+      
       {/* LOGINMail MODAL */}
-      <Modal isOpen={lgnlm} className="abc">
-        <div class="modal-header hd">
-          <h3 class="modal-title">Login</h3>
-          <button type="button" class="btn-close q" data-bs-dismiss="modal" aria-label="Close" onClick={close}></button>
-        </div>
-        <div class="modal-body bdy">
-          <br></br><br></br>
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={setemailLm} />
-            <label for="floatingInput">Email address</label>
-          </div>
-          <br></br>
+      <Modal show={lgnlm} onHide={close}>
+        
+      <Modal.Header closeButton className="hd">
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="bdy">
+        <br></br>
+      
+        <Form>
+  <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Label></Form.Label>
+    <Form.Control type="email" placeholder="Enter email" onChange={setemailLm} />
+  
+  </Form.Group>
+  <div className={cname}>
+  <Form.Group  controlId="formBasicPassword">
+   
+    <Form.Control type="text" placeholder="OTP" onChange={setOtp} />
+  </Form.Group>
+  </div>
+</Form>       
+         </Modal.Body>
+        <Modal.Footer className="ft">
+          <Button variant="secondary" >
+          Login via Phone
+          </Button>
           <div className={cname}>
-            <div class="form-floating am">
-              <input type="text" class="form-control" id="floatingPassword" placeholder="Otp" onChange={setOtp} />
-              <label for="floatingPassword">Otp</label>
-            </div>
+          <Button variant="secondary" onClick={verifyotp}>
+       Verify Otp
+          </Button>
           </div>
-        </div>
-        <div class="modal-footer ft">
-          <button type="button" class="btn btn-outline-warning bttn">Login via Phone</button>
-          <div className={cname}>
-            <button type="button" className={"btn btn-outline-warning bttn"} onClick={verifyotp}>Verify Otp</button>
-          </div>
-          <button type="button" class="btn btn-warning bttn" data-dismiss="modal" onClick={sendotp}>Send Otp</button>
-        </div>
+          <Button variant="warning" onClick={sendotp}>
+      Send Otp
+          </Button>
+        </Modal.Footer>
 
       </Modal>
 
       {/* SignUP MODAL */}
 
-      <Modal isOpen={sgnup} className="abc">
-        <div class="modal-header hd">
-          <h3 class="modal-title">Register</h3>
+      <Modal show={sgnup} onHide={close}>
+      <Modal.Header closeButton className="hd">
+          <Modal.Title>SignUp</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="body">
+        <br></br>
+      
+        <Form>
+  <Form.Group  controlId="formBasicEmail">
+    <Form.Label></Form.Label>
+    <Form.Control type="email" placeholder="Enter email" onChange={setemailsu} />
+  </Form.Group>
 
-          <button type="button" class="btn-close q" data-bs-dismiss="modal" aria-label="Close" onClick={close}></button>
-
-        </div>
-        <div class="modal-body body">
-          <br></br>
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={setemailsu} />
-            <label for="floatingInput">Email address</label>
-          </div>
-
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingPassword" placeholder="Password" onChange={setname} />
-            <label for="floatingPassword">Name</label>
-          </div>
-
-
-          <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" onChange={setpasswordsu} />
-            <label for="floatingPassword">Password</label>
-          </div>
-
-
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingPassword" placeholder="Password" onChange={setphn} />
-            <label for="floatingPassword">Phone</label>
-          </div>
-          <br></br>
-
-          {/* <center>{res}</center> */}
-        </div>
-        <div class="modal-footer ft">
-
-          <button type="button" class="btn btn-warning bttn" data-dismiss="modal" onClick={fetchData1}>Register</button>
-        </div>
-
+  <Form.Group  controlId="formBasicPassword">
+    <Form.Control type="text" placeholder="Enter Name" onChange={setname} />
+  </Form.Group>
+  <Form.Group controlId="formBasicEmail">
+    
+    <Form.Control type="password" placeholder="Enter Password" onChange={setpasswordsu} />
+  
+  </Form.Group>
+  <Form.Group controlId="formBasicEmail">
+  
+    <Form.Control type="text" placeholder="Enter Mobile No." onChange={setphn} />
+  
+  </Form.Group>
+</Form>       
+         </Modal.Body>
+        <Modal.Footer className="ft">
+         
+          <Button variant="warning" onClick={fetchData1}>
+          SignUp
+          </Button>
+        </Modal.Footer>
       </Modal>
       <div className="weeq"></div>
     </div>

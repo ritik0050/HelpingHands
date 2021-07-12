@@ -62,8 +62,12 @@ function Header() {
         updatelgn(false);
         updateshow("a2");
         updateshow1("a1");
-        let name = response.data.name;
-      localStorage.setItem("UserName",name);
+        const loginResponse = JSON.stringify(response.data);
+      localStorage.setItem("loginResponse",loginResponse);
+      if(response.data.adminStatus===1)
+      {
+        history.push("/admin/sidebar");
+      }
       }
 
     });

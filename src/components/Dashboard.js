@@ -50,7 +50,7 @@ function Dashboard(prop) {
                         <Carousel.Item>
                             <img
                                 className="d-block imghw w-100"
-                                src="assests/pic1.jpg"
+                                src="../assests/pic1.jpg"
                                 alt="First slide"
                             />
 
@@ -58,21 +58,21 @@ function Dashboard(prop) {
                         <Carousel.Item>
                             <img
                                 className="d-block imghw w-100"
-                                src="assests/pic1.jpg"
+                                src="../assests/pic1.jpg"
                                 alt="Second slide"
                             />
                         </Carousel.Item>
                         <Carousel.Item>
                             <img
                                 className="d-block imghw w-100"
-                                src="assests/pic3.jpg"
+                                src="../assests/pic3.jpg"
                                 alt="Third slide"
                             />
                         </Carousel.Item>
                         <Carousel.Item>
                             <img
                                 className="d-block imghw w-100"
-                                src="assests/pic4.jpg"
+                                src="../assests/pic4.jpg"
                                 alt="Third slide"
                             />
                         </Carousel.Item>
@@ -92,7 +92,7 @@ function Dashboard(prop) {
       <Col md={3}>
       <div class="box">
 
-<img src="assests/pic1.jpg" className="img imghv" alt="" />
+<img src="../assests/pic1.jpg" className="img imghv" alt="" />
 <div>
     <span className="fntss"> Item Name: Book</span> <br></br>
     <span className="fntss"> Item Desc: Good Book</span><br></br>
@@ -102,7 +102,7 @@ function Dashboard(prop) {
       <Col md={3}>
       <div class="box">
 
-<img src="assests/pic2.jpg" className="img imghv" alt="" />
+<img src="../assests/pic2.jpg" className="img imghv" alt="" />
 <div>
     <span className="fntss"> Item Name: Book</span> <br></br>
     <span className="fntss"> Item Desc: Good Book</span><br></br>
@@ -112,7 +112,7 @@ function Dashboard(prop) {
       <Col md={3}>
       <div class="box">
 
-<img src="assests/pic3.jpg" className="img imghv" alt="" />
+<img src="../assests/pic3.jpg" className="img imghv" alt="" />
 <div>
     <span className="fntss"> Item Name: Book</span> <br></br>
     <span className="fntss"> Item Desc: Good Book</span><br></br>
@@ -122,7 +122,7 @@ function Dashboard(prop) {
       <Col md={3}>
       <div class="box">
 
-<img src="assests/pic4.jpg" className="img imghv" alt="" />
+<img src="../assests/pic4.jpg" className="img imghv" alt="" />
 <div>
     <span className="fntss"> Item Name: Book</span> <br></br>
     <span className="fntss"> Item Desc: Good Book</span><br></br>
@@ -133,61 +133,8 @@ function Dashboard(prop) {
   </Row>
 </div>
             <br></br>
-            {/* <div className="fd">
-                <div className="see">
-                    <div><h3 className="font" onClick={getData1}>Foods
-                    </h3></div>
-                </div>
-                <br></br><br>
-                </br>
-                <div className="images">
-                    <div class="box">
-
-                        <img src="assests/pic1.jpg" className="img imghv" alt="" />
-                        <div className="overlay">
-                            <div>
-
-                                Item Name: Book<br></br>
-                                Item Desc: Good Book<br></br>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box">
-
-                        <img src="assests/pic2.jpg" className="img imghv" alt="" />
-                        <div className="overlay">
-                            <div>
-
-                                Item Name: Book<br></br>
-                                Item Desc: Good Book<br></br>
-                            </div>
-                        </div>
-                    </div>  <div class="box">
-
-                        <img src="assests/pic3.jpg" className="img imghv" alt="" />
-                        <div className="overlay">
-                            <div>
-
-                                Item Name: Book<br></br>
-                                Item Desc: Good Book<br></br>
-                            </div>
-                        </div>
-                    </div>  <div class="box">
-
-                        <img src="assests/pic4.jpg" className="img imghv" alt="" />
-                        <div className="overlay">
-                            <div>
-
-                                Item Name: Book<br></br>
-                                Item Desc: Good Book<br></br>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-            <Link to="/admin/sidebar">
-<button>Admin</button>
-</Link>
+         
+      
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import './../global.css';
-import { Sidebardata } from './Sidebardata'
+
 import './../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { Link } from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar';

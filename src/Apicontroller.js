@@ -118,7 +118,7 @@ export function Imagepass()
        
      )
 }
-export function ImagePass(a,b,c,d,e,f,g) {
+export function ImagePass(a,b,c,d,e,f,g,userID,token) {
     let formData = new FormData();
     console.log("hiii");
     formData.append('fileFullWidth', a);
@@ -126,8 +126,8 @@ export function ImagePass(a,b,c,d,e,f,g) {
     formData.append('filePortrait', c);
     formData.append('fileSquare', d);
     formData.append('fileHero', e);
-    formData.append('userID', 1);
-    formData.append('token', "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJwcml5YW5zaGlnYWhsYXdhdDExQGdtYWlsLmNvbSIsImlhdCI6MTYyNTQwNjY3MywiZXhwIjoxNjI1NDA3NjczfQ.QRD4Tjw1_7wgIAxEdnM3bgyNbqwd_oaxNFzAVYZMuH8");
+    formData.append('userID', userID);
+    formData.append('token',token);
     formData.append('category', 1);
     formData.append('item_desc', f);
     formData.append('item_name', g);
@@ -148,3 +148,89 @@ console.log(formData)
   })
   
   }
+  export function AdminInboxx(userID,token)
+{
+    let q={
+       
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/fetchItem",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function AdminAccept(itemID,userID,token)
+{
+    let q={
+       "itemID":itemID,
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/approveItem",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function AdminDecline(itemID,userID,token)
+{
+    let q={
+       "itemID":itemID,
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/rejectItem",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function UpdateInfo(userID,token,email,name,phone)
+{
+    let q={
+        "userID":userID,
+        "token":token,
+       "name":name,
+        "email":email,
+        "phone":phone
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/updateInformation",req).then((data)=>
+     
+      data.json()
+       
+     )
+}

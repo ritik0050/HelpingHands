@@ -12,20 +12,25 @@ import { BsInboxFill } from "react-icons/bs";
 import { BsBagFill } from "react-icons/bs";
 import {useHistory} from 'react-router-dom'
 function DashboardCard(){
-    const username = localStorage.getItem("UserName");
+    const username = localStorage.getItem("loginResponse");
+    const loginres = JSON.parse(username);
     console.log("username:  " + username);
     const history=new useHistory();
     function openInbox(){
-        history.push("/dashboardcard/inbox")
+        history.push("/user/dashboardcard/inbox")
     }
     function uploadImage()
     {
-        history.push("/dashboardcard/imageupload");
+        history.push("/user/dashboardcard/imageupload");
+    }
+    function openupdateInfo()
+    {
+        history.push("/user/dashboardcard/updateinfo");
     }
     return(
         <div>
             <br></br><br></br><br></br>
-            <h2 className="heading"><font face="Times New Roman">WELCOME {username}</font></h2>
+            <h2 className="heading"><font face="Times New Roman">WELCOME {loginres.name}</font></h2>
             <br></br>
             <hr className="heading-hr"></hr>
             <br></br><br></br>
@@ -60,7 +65,7 @@ function DashboardCard(){
                             <Card.Title >Update My Information</Card.Title>
                                 <FaUserEdit className="mb-3" size="6em" color="#ffc107"/>
                                 <Card.Subtitle className="mb-5 text-muted">Update your information</Card.Subtitle>
-                                <Card.Link href="#">Update</Card.Link>
+                                <Card.Link onClick={openupdateInfo}>Update</Card.Link>
                         </Card.Body>
                     </Card></Col>
                 </Row>

@@ -13,6 +13,7 @@ import AdminSidebar from './components/AdminSidebar';
 import Row from 'react-bootstrap/Row'
 import Col from "react-bootstrap/Col"
 import AdminInbox from './components/AdminInbox'
+import UpdateUserInfo from './components/UpdateUserInfo';
 
 
 
@@ -47,6 +48,9 @@ updatez(data);
 </Route>
 <Route path="/user/dashboardcard/imageupload" exact>
 <ImageUpload></ImageUpload>
+</Route>
+<Route path="/user/dashboardcard/updateinfo" exact>
+<UpdateUserInfo></UpdateUserInfo>
 </Route>
 <Route path="/admin">
   <AdminHeader></AdminHeader>

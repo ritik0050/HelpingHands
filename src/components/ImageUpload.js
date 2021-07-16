@@ -14,11 +14,12 @@ function ImageUpload()
   const [e, selectedFile5] = useState("");
   const [f, itemdesc1] = useState("");
   const [g, itemname1] = useState("");
-  const [imgSrc,updatefileurl]=useState("");
-  const [imgSrc2,updatefileurl2]=useState("");
-  const [imgSrc3,updatefileurl3]=useState("");
-  const [imgSrc4,updatefileurl4]=useState("");
-  const [imgSrc5,updatefileurl5]=useState("");
+  const[category,setCategory]=useState("");
+  const [imgSrc,updatefileurl]=useState("../../assests/imagealt.jpeg");
+  const [imgSrc2,updatefileurl2]=useState("../../assests/imagealt.jpeg");
+  const [imgSrc3,updatefileurl3]=useState("../../assests/imagealt.jpeg");
+  const [imgSrc4,updatefileurl4]=useState("../../assests/imagealt.jpeg");
+  const [imgSrc5,updatefileurl5]=useState("../../assests/imagealt.jpeg");
   var reader = new FileReader();
   function itemdesc(event) {
     itemdesc1(event.target.value);
@@ -50,17 +51,18 @@ function ImageUpload()
     selectedFile5(event.target.files[0]);
     updatefileurl5(URL.createObjectURL(event.target.files[0]));
   }
-  function selectCategory(event)
+  function updateCategory(event)
   {
     // updatevalue(event.target.value);
     console.log(event.target.value);
+    setCategory(event.target.value);
   }
 
   const username = localStorage.getItem("loginResponse");
     const loginres = JSON.parse(username);
   function fileUpload(event) {
     event.preventDefault();
-   ImagePass(a,b,c,d,e,f,g,loginres.userID,loginres.token).then(response => {
+   ImagePass(a,b,c,d,e,f,g,loginres.userID,loginres.token,category).then(response => {
         console.log(response);
       })
       .catch(error => {
@@ -79,12 +81,22 @@ function ImageUpload()
 
    <div className="row">
   <div class="mb-3 col-md-5">
+    <div class="row">
   <label for="formGroupExampleInput" class="form-label">Item Name</label>
   <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Item Name" onChange={itemname}/>
 </div>
+<div class="row frm-lbl-hgt">
+  <select class="form-control" onChange={updateCategory}>
+  <option value="0" selected>Select Category</option>
+  <option value="1">Education</option>
+  <option value="2">Furniture</option>
+  <option value="3">Clothes</option>
+  </select>
+</div>
+</div>
 <div class="mb-3 col-md-7">
   <label for="formGroupExampleInput" class="form-label">Item Description</label>
-  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Item Description" onChange={itemdesc}/>
+  <textarea rows="4" class="form-control" id="formGroupExampleInput" placeholder="Item Description" onChange={itemdesc}></textarea>
 </div>
 {/* <div class="col-md-2 marginn">
 <DropdownButton id="dropdown-basic-button" variant="secondary" title="Category" onChange={selectCategory}>
@@ -99,7 +111,7 @@ function ImageUpload()
   <div className="col-md-4">
 <img src={imgSrc} className="uploadedimage"/>
  <div class="upload-btn-wrapper col">
- <button class="btttn col-md-10">Upload Cover Image</button>
+ <button class="btttn col-md-10">Upload  Image</button>
  <input type="file" name="fileThumbnail" class="form-control" id="inputGroupFile02" onChange={imageChange1}/>
 </div>
 
@@ -107,14 +119,14 @@ function ImageUpload()
 <div className="col-md-4">
 <img src={imgSrc2} className="uploadedimage"/>
 <div class="upload-btn-wrapper col">
- <button class="btttn col-md-10">Upload Cover Image</button>
+ <button class="btttn col-md-10">Upload  Image</button>
  <input type="file" name="fileThumbnail" class="form-control" id="inputGroupFile02" onChange={imageChange2}/>
 </div>
 </div>
 <div className="col-md-4">
 <img src={imgSrc3} className="uploadedimage"/>
 <div class="upload-btn-wrapper col">
- <button class="btttn col-md-10">Upload Cover Image</button>
+ <button class="btttn col-md-10">Upload  Image</button>
  <input type="file" name="fileThumbnail" class="form-control" id="inputGroupFile02" onChange={imageChange3}/>
 </div>
 </div>
@@ -126,7 +138,7 @@ function ImageUpload()
 <img src={imgSrc4} className="uploadedimage"/>
  <div class="upload-btn-wrapper col">
    
- <button class="btttn col-md-10">Upload Cover Image</button>
+ <button class="btttn col-md-10">Upload  Image</button>
  <input type="file" name="fileThumbnail" class="form-control" id="inputGroupFile02" onChange={imageChange4}/>
 </div>
 
@@ -134,7 +146,7 @@ function ImageUpload()
 <div className="col-md-4">
 <img src={imgSrc5} onerror="this.src='../assests/imagealt.jepg';"className="uploadedimage"/>
 <div class="upload-btn-wrapper col">
- <button class="btttn col-md-10">Upload Cover Image</button>
+ <button class="btttn col-md-10">Upload  Image</button>
  <input type="file" name="fileThumbnail" class="form-control" id="inputGroupFile02" onChange={imageChange5}/>
 </div>
 </div>

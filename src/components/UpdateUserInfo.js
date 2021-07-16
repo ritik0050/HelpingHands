@@ -7,7 +7,9 @@ import Col from 'react-bootstrap/Col';
 import './../global.css';
 import { UpdateInfo } from "../Apicontroller";
 import { useState } from "react";
+import { useHistory } from 'react-router-dom';
 function UpdateUserInfo(){
+    const history = new useHistory();
     const[name,updateName]=useState("");
     const[email,updateEmail]=useState("");
     const[phone,updatePhone]=useState("");
@@ -39,8 +41,12 @@ function UpdateUserInfo(){
         }
 })
     }
+    function updatePass(){
+        history.push("/user/dashboardcard/updatePassinfo");
+    }
     return(
-        <div>
+      
+           <div>
             <Row>
                 <Col md={1}></Col>
                 <Col md={5}>
@@ -60,7 +66,7 @@ function UpdateUserInfo(){
                         </div>
                         <div>
                             <h5>Name</h5>
-                            <input className="uui-input" type="text" onChange={setName}></input>
+                            <input className="uui-input" type="text" placeholder="Enter your name" onChange={setName}></input>
                         </div>
                     </div>
                     <div className="uui-input-div uui-two">
@@ -69,7 +75,7 @@ function UpdateUserInfo(){
                         </div>
                         <div>
                             <h5>Email</h5>
-                            <input className="uui-input" type="text"  onChange={setEmail}></input>
+                            <input className="uui-input" type="text" placeholder="Enter your email" onChange={setEmail}></input>
                         </div>
                     </div>
                     <div className="uui-input-div uui-two">
@@ -78,10 +84,11 @@ function UpdateUserInfo(){
                         </div>
                         <div>
                             <h5>Phone</h5>
-                            <input className="uui-input" type="text"  onChange={setPhone}></input>
+                            <input className="uui-input" type="text" placeholder="Enter your phone" onChange={setPhone}></input>
                         </div>
                     </div>
                     <input type="button" value="UPDATE" className="uui-btn " onClick={Update}></input>
+                    <input type="button" value="RESET PASSWORD" className="uui-btn " onClick={updatePass}></input>
                     </form>
                 </div>
             </div>

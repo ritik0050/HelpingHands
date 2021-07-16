@@ -118,7 +118,7 @@ export function Imagepass()
        
      )
 }
-export function ImagePass(a,b,c,d,e,f,g,userID,token) {
+export function ImagePass(a,b,c,d,e,f,g,userID,token,category) {
     let formData = new FormData();
     console.log("hiii");
     formData.append('fileFullWidth', a);
@@ -128,7 +128,7 @@ export function ImagePass(a,b,c,d,e,f,g,userID,token) {
     formData.append('fileHero', e);
     formData.append('userID', userID);
     formData.append('token',token);
-    formData.append('category', 1);
+    formData.append('category', category);
     formData.append('item_desc', f);
     formData.append('item_name', g);
 console.log(f);
@@ -148,27 +148,8 @@ console.log(formData)
   })
   
   }
-  export function AdminInboxx(userID,token)
-{
-    let q={
-       
-        "userID":userID,
-        "token":token
-    }
-    let req={
-     method:"POST",
-     body:JSON.stringify(q),
-     headers:{"Content-Type":"application/json",
- "Bypass-Tunnel-Reminder":"abc"
- }
-
- }
- return fetch(abc+"/fetchItem",req).then((data)=>
-     
-      data.json()
-       
-     )
-}
+ 
+  
 export function AdminAccept(itemID,userID,token)
 {
     let q={
@@ -229,6 +210,262 @@ export function UpdateInfo(userID,token,email,name,phone)
 
  }
  return fetch(abc+"/updateInformation",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+ 
+export function GetUserItem(userID,token)
+{
+    let q={
+     
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/fetchUserItems",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function AdminInboxx(userID,token)
+{
+    let q={
+       
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/fetchItem",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function RemoveItem(itemID,userID,token)
+{
+    let q={
+         "itemID":itemID,
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/removeUserItem",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function UpdatePassInfo(userID,token,newPass,oldPass)
+{
+    let q={
+        "newPassword": newPass,
+        "oldPassword": oldPass,
+        "token": token,
+        "userID":userID
+      }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/updatePassword",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function TotalUsers(userID,token)
+{
+    let q={
+       
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/fetchTotalUsers",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+
+export function LockUser(userID,adminID,token)
+{
+    let q={
+        "adminID":userID,
+        "token":token,
+        "userID":adminID,
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/lockUser",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+
+export function UnlockUser(userID,adminID,token)
+{
+    let q={
+        "adminID":userID,
+        "token":token,
+        "userID":adminID,
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/unlockUser",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function CreateAdmin(userID,token)
+{
+    let q={
+       
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/fetchUsers",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function AddAdmin(userID,adminID,token)
+{
+    let q={
+        "adminID":userID,
+        "token":token,
+        "userID":adminID,
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/createAdmin",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+
+export function RemoveAdmin(userID,adminID,token)
+{
+    let q={
+        "adminID":userID,
+        "token":token,
+        "userID":adminID
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/removeAdmin",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function LogOutt(userID)
+{
+    let q={
+        "userID":userID
+      
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/logoutUser",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function VerifyTokenn(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+      
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/verifyToken",req).then((data)=>
      
       data.json()
        

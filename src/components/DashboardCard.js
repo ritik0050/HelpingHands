@@ -27,10 +27,14 @@ function DashboardCard(){
     {
         history.push("/user/dashboardcard/updateinfo");
     }
+    function openMyItem()
+    {
+        history.push("/user/dashboardcard/myitem");
+    }
     return(
         <div>
             <br></br><br></br><br></br>
-            <h2 className="heading"><font face="Times New Roman">WELCOME {loginres.name}</font></h2>
+            <h2 className="heading"><font face="Times New Roman">DASHBOARD</font></h2>
             <br></br>
             <hr className="heading-hr"></hr>
             <br></br><br></br>
@@ -49,7 +53,7 @@ function DashboardCard(){
                             <Card.Title className="mb-2">My Items</Card.Title>
                                 <BsBagFill className="mb-3" size="6em" color="#ffc107"/>
                                 <Card.Subtitle className="mb-5 text-muted">Check the status of all your items</Card.Subtitle>
-                                <Card.Link href="#">See my items</Card.Link>
+                                <Card.Link onClick={openMyItem} className="hvr-csr-p">See my items</Card.Link>
                         </Card.Body>
                     </Card></Col>
                     <Col><Card className="text-center card-hvr" >
@@ -57,7 +61,7 @@ function DashboardCard(){
                             <Card.Title className="mb-3">Upload</Card.Title>
                                 <FiUpload className="mb-4" size="6em" color="#ffc107"/>
                                 <Card.Subtitle className="mb-5 text-muted">Donate new item</Card.Subtitle>
-                                <Card.Link onClick={uploadImage}>Upload</Card.Link>
+                                <Card.Link onClick={uploadImage} className="hvr-csr-p">Upload</Card.Link>
                         </Card.Body>
                     </Card></Col>
                     <Col><Card className="text-center card-hvr" >
@@ -65,7 +69,7 @@ function DashboardCard(){
                             <Card.Title >Update My Information</Card.Title>
                                 <FaUserEdit className="mb-3" size="6em" color="#ffc107"/>
                                 <Card.Subtitle className="mb-5 text-muted">Update your information</Card.Subtitle>
-                                <Card.Link onClick={openupdateInfo}>Update</Card.Link>
+                                <Card.Link onClick={openupdateInfo} className="hvr-csr-p">Update</Card.Link>
                         </Card.Body>
                     </Card></Col>
                 </Row>

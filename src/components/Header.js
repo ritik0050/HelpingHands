@@ -7,14 +7,21 @@ import {useHistory} from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Form  from 'react-bootstrap/Form';
-import { LoginPass, MailLogin, VerifyOtp, SignUp } from './../Apicontroller';
+import { LoginPass, MailLogin, VerifyOtp, SignUp, LogOutt,VerifyTokenn } from './../Apicontroller';
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import { AiOutlineLogout } from "react-icons/ai";
+
 
 function Header() {
+
   const [show, updateshow] = useState("a1");
   const [show1, updateshow1] = useState("a2");
   const [lgn, updatelgn] = useState(false);
   const [lgnlm, updatelgnlm] = useState(false);
   const [sgnup, updatesgnup] = useState(false);
+  const[ress,upress]=useState([]);
+  let uname = localStorage.getItem("loginResponse");
+     let  lgnres = JSON.parse(uname);
   const history=new useHistory();
   function modalOpen1(event) {
     event.preventDefault();
@@ -38,8 +45,37 @@ function Header() {
   const [email, updateemail] = useState("");
 
   const [pass, updatepass] = useState("");
+let loginres={
+  "name":"unknown",
+  "email":"unknown@gmail.com"
+}
+const[abc,upav]=useState(loginres);
+  useEffect(()=>{
+      let username = localStorage.getItem("loginResponse");
+       loginres = JSON.parse(username);
+       upav(loginres);
+       console.log("dnsx");
+  },[])
+
+  useEffect(()=>
+  {
+    console.log("dnsx");
+    VerifyTokenn(lgnres.userID,lgnres.token).then((response) => {
+      console.log("response");
+      console.log(response);
+      upress(response);
+      if (response.statusCode === "200") {
+        updateshow("a2");
+        updateshow1("a1");
+      }
+      if (response.statusCode === "202") {
+        updateshow("a1");
+        updateshow1("a2");
+      }
 
 
+    });
+  },[])
   function setemail(event) {
     updateemail(event.target.value);
   }
@@ -142,6 +178,19 @@ function Header() {
   {
     history.push("/user/dashboard");
   }
+  function logOut()
+  {
+    LogOutt(abc.userID).then((response) => {
+      console.log("response");
+      console.log(response);
+      if (response.statusCode === "200") {
+        history.push("/");
+        updateshow("a1");
+        updateshow1("a2");
+      }
+
+    });
+  }
 
   return (
     <div className="fixed-header">
@@ -159,7 +208,16 @@ function Header() {
       <Nav.Link className={show1}  onClick={modalOpen1}> <span className="nav-hvr">LOGIN</span></Nav.Link>
       <Nav.Link className={show} onClick={openHome}><span className="nav-hvr">HOME</span></Nav.Link>
       <Nav.Link className={show} onClick={openDashboard}><span className="nav-hvr">DASHBOARD</span></Nav.Link>
-      <Nav.Link className={show}><span className="nav-hvr">LOG OUT</span> </Nav.Link>
+      <span id="mt-1s" className={show}> 
+    
+       <NavDropdown className={show} title={abc.name.substring(0,1)} id="basic-nav-dropdown" >
+      
+                <NavDropdown.Item className="nav-drpdwn1"><center>{abc.name}<br></br><span class="nav-drpdwn-spn">{abc.email}</span></center></NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item className="drp-lg-out" onClick={logOut}><center>Log Out &nbsp;</center></NavDropdown.Item>
+              </NavDropdown>
+  </span>
+ 
 
     </Nav>
   </Navbar.Collapse>

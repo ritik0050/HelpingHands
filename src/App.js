@@ -14,6 +14,10 @@ import Row from 'react-bootstrap/Row'
 import Col from "react-bootstrap/Col"
 import AdminInbox from './components/AdminInbox'
 import UpdateUserInfo from './components/UpdateUserInfo';
+import UserItem from './components/UserItem';
+import PassReset from './components/PassReset';
+import AdminCreateAdmin from './components/AdminCreateAdmin';
+import AdminLockUser from './components/AdminLockUser';
 
 
 
@@ -49,12 +53,19 @@ updatez(data);
 <Route path="/user/dashboardcard/imageupload" exact>
 <ImageUpload></ImageUpload>
 </Route>
+<Route path="/user/dashboardcard/myitem" exact>
+<UserItem></UserItem>
+</Route>
 <Route path="/user/dashboardcard/updateinfo" exact>
 <UpdateUserInfo></UpdateUserInfo>
+</Route>
+<Route path="/user/dashboardcard/updatePassinfo" exact>
+<PassReset></PassReset>
 </Route>
 <Route path="/admin">
   <AdminHeader></AdminHeader>
 </Route>
+
 <Row>
   <Col md={2}>
 <Route path="/admin/sidebar">
@@ -64,6 +75,12 @@ updatez(data);
 <Col md={10}>
 <Route path="/admin/sidebar/inbox">
   <AdminInbox></AdminInbox>
+</Route>
+<Route path="/admin/sidebar/createadmin">
+  <AdminCreateAdmin></AdminCreateAdmin>
+</Route>
+<Route path="/admin/sidebar/lockuser">
+  <AdminLockUser></AdminLockUser>
 </Route>
 </Col>
 </Row>

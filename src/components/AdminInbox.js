@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { AdminInboxx } from '../Apicontroller';
-import { BsThreeDots } from "react-icons/bs";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { AdminAccept } from '../Apicontroller';
+import { AdminAccept ,} from '../Apicontroller';
 import { AdminDecline } from '../Apicontroller';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
@@ -12,6 +12,7 @@ import { link } from '../serverurl';
 
 function AdminInbox()
 {
+    let c=1;
     let m=link();
     const[data,updateData]=useState([]);
     const[itemsss,updateitemss]=useState([]);
@@ -72,7 +73,7 @@ function AdminInbox()
     return(
         <div class="inbx-tbl ">
       <br></br>
-
+<div class="inbox-table">
     <Table responsive="md">
  
     <tbody>
@@ -82,20 +83,20 @@ function AdminInbox()
         <th>Item Name</th>
         <th>Item Desc</th>
         <th>Date</th>
-        <th>Actions</th>
+        <th></th>
       </tr>
      
       {
           data.map((item)=>(
           <tr class="inbx-tr">
-              <td>{item.itemID}</td>
+              <td>{c++}</td>
               <td>{item.itemName}</td>
               <td>{item.itemDesc}</td>
               <td>{item.date.substring(0,10)}</td>
               <td width="50px"  >
             <Dropdown>
   <Dropdown.Toggle variant="light" className="ndrptgl-bt bg-white border-0 p-0"  id="dropdown-basic">
-  <BsThreeDots size="28px" color="black"/>
+  <BiDotsVerticalRounded size="28px" color="black"/>
   </Dropdown.Toggle>
 
   <Dropdown.Menu>
@@ -113,7 +114,7 @@ function AdminInbox()
     </tbody>
 
   </Table>
-  
+  </div>
   {/* ===============Descrption MODAL================== */}
   <Modal show={show}  onHide={handleClose} >
         <Modal.Header closeButton>

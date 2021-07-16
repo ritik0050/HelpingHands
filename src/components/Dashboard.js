@@ -50,7 +50,7 @@ function Dashboard(prop) {
                         <Carousel.Item>
                             <img
                                 className="d-block imghw w-100"
-                                src="../assests/pic1.jpg"
+                                src="../assests/cr_1.jpg"
                                 alt="First slide"
                             />
 
@@ -58,24 +58,18 @@ function Dashboard(prop) {
                         <Carousel.Item>
                             <img
                                 className="d-block imghw w-100"
-                                src="../assests/pic1.jpg"
+                                src="../assests/cr_2.jpg"
                                 alt="Second slide"
                             />
                         </Carousel.Item>
                         <Carousel.Item>
                             <img
                                 className="d-block imghw w-100"
-                                src="../assests/pic3.jpg"
+                                src="../assests/cr_1.jpg"
                                 alt="Third slide"
                             />
                         </Carousel.Item>
-                        <Carousel.Item>
-                            <img
-                                className="d-block imghw w-100"
-                                src="../assests/pic4.jpg"
-                                alt="Third slide"
-                            />
-                        </Carousel.Item>
+        
                     </Carousel>
                 </div>
             </center>

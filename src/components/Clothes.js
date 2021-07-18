@@ -4,7 +4,7 @@ import {link} from './../serverurl';
 import Row from 'react-bootstrap/Row'
 import Col from "react-bootstrap/Col"
 import { PanToolSharp } from '@material-ui/icons';
-function Education() {
+function Clothes() {
     console.log("dbhds");
     let edu=localStorage.getItem("imgsrc");
     let edudata=JSON.parse(edu);
@@ -13,7 +13,7 @@ function Education() {
     return (
         <div>
             <br></br>
-            <h2 className="heading"><font face="Times New Roman">{edudata.data[0].categoryName}</font></h2>
+            <h2 className="heading"><font face="Times New Roman">{edudata.data[2].categoryName}</font></h2>
           
            
            <div className="colr-edu">
@@ -21,7 +21,7 @@ function Education() {
             {
              
 
-             edudata.data[0].getCategoryID.map((pro) => (
+             edudata.data[2].getCategoryID.map((pro) => (
                      
                         <Col md={3}>
                         <div class="box">
@@ -44,4 +44,4 @@ function Education() {
       
     )
 }
-export default Education;
+export default Clothes;

@@ -14,6 +14,7 @@ function AdminCreateAdmin(){
     let counter = 1;
     let c=1;
     const[data,updateData]=useState([]);
+    const [abc, upabc] = useState(true);
     const username = localStorage.getItem("loginResponse");
     const loginres = JSON.parse(username);
 
@@ -22,6 +23,7 @@ function AdminCreateAdmin(){
         CreateAdmin(loginres.userID, loginres.token).then((response) => {
             console.log(response);
             updateData(response.data);
+            upabc(false);
         })
     },[])
 
@@ -82,6 +84,8 @@ function AdminCreateAdmin(){
     }
 
     return (
+        <>
+         { abc ? <center><img src="../../assests/search.gif" className="loadersearch" width="150px" height="150px"></img></center> :
         <div className="aca-tbl">
             <Table responsive="md">
                 <tbody>
@@ -118,6 +122,8 @@ function AdminCreateAdmin(){
                 </tbody>
             </Table>
         </div>
+        }
+        </>
     );                                                                                                                                                                                                                                                                                                                                                                              
 }
 export default AdminCreateAdmin;

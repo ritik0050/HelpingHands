@@ -9,6 +9,8 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import Modal from 'react-bootstrap/Modal';
 import { link } from '../serverurl';
+import Row from 'react-bootstrap/Row'
+import Col from "react-bootstrap/Col"
 
 function AdminInbox()
 {
@@ -16,6 +18,7 @@ function AdminInbox()
     let m=link();
     const[data,updateData]=useState([]);
     const[itemsss,updateitemss]=useState([]);
+    const [abc, upabc] = useState(true);
     
 
     const username = localStorage.getItem("loginResponse");
@@ -67,10 +70,13 @@ function AdminInbox()
         AdminInboxx(loginres.userID, loginres.token).then((response) => {
             console.log(response);
             updateData(response.data2);
+            upabc(false);
    })
     },[])
   
     return(
+      <>
+      { abc?<center><img src="../../assests/search.gif" className="loadersearch" width="150px" height="150px"></img></center>:
         <div class="inbx-tbl ">
       <br></br>
 <div class="inbox-table">
@@ -117,8 +123,8 @@ function AdminInbox()
   </div>
   {/* ===============Descrption MODAL================== */}
   <Modal show={show}  onHide={handleClose} >
-        <Modal.Header closeButton>
-          <Modal.Title><b>DESCRIPTION</b></Modal.Title>
+        <Modal.Header closeButton className="hd">
+          <Modal.Title ><b>DESCRIPTION</b></Modal.Title>
           
     
         </Modal.Header>
@@ -140,16 +146,26 @@ function AdminInbox()
             </div>
          
         </Slide>
+        <br></br>
         <div id='slide1'>
-          <span><b>DESCRIPTION:</b>  {itemsss.itemDesc}</span><br></br>
-          <span><b>ITEM'S NAME:</b>   {itemsss.itemName}</span><br></br>
-          <span><b>DATE:</b>  {itemsss.date}</span><br></br>
+          <Row>
+         <Col md="4"><b>DESCRIPTION:</b> </Col> <Col> {itemsss.itemDesc}</Col>
+          </Row>
+          <Row>
+         <Col md="4"><b>ITEM'S NAME:</b> </Col> <Col> {itemsss.itemName}</Col>
+          </Row>
+          <Row>
+         <Col md="4"><b>DATE:</b> </Col> <Col> {itemsss.date}</Col>
+          </Row>
+       
         </div>
         
       </div></Modal.Body>
   
       </Modal>
   </div>
+  }
+  </>
     )
 }
 export default AdminInbox;

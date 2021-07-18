@@ -64,6 +64,10 @@ function ImageUpload()
     event.preventDefault();
    ImagePass(a,b,c,d,e,f,g,loginres.userID,loginres.token,category).then(response => {
         console.log(response);
+        if(response.data.statusCode==="200")
+        {
+          alert("donated");
+        }
       })
       .catch(error => {
         console.log(error);

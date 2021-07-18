@@ -14,12 +14,13 @@ function AdminLockUser(){
     const[data,updateData]=useState([]);
     const username = localStorage.getItem("loginResponse");
     const loginres = JSON.parse(username);
-
+    const [abc, upabc] = useState(true);
     useEffect(()=>
     {
         TotalUsers(loginres.userID, loginres.token).then((response) => {
             console.log(response);
             updateData(response.data);
+           upabc(false);
         })
     },[])
 
@@ -56,6 +57,8 @@ function AdminLockUser(){
     }
 
     return(
+        <>
+         { abc ? <center><img src="../../assests/search.gif" className="loadersearch" width="150px" height="150px"></img></center> :
         <div className="aca-tbl">
             <Table responsive="md">
                 <tbody>
@@ -88,6 +91,8 @@ function AdminLockUser(){
                 </tbody>
             </Table>
         </div>
+        }
+        </>
     );
 }
 export default AdminLockUser;

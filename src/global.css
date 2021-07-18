@@ -115,6 +115,9 @@ color:white;
     background-color:#343a40;
     height: 220px;
     width:500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .abc{
     height: 320px;
@@ -155,6 +158,23 @@ color:white;
     background-color:#343a40;
     height: 320px;
     width:500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.stat-dash{
+    background-color:#343a40;
+    height:130px;
+    width:18vw;
+    padding-top: 10px;
+    padding-left:25px;
+}
+.prnt-dash{
+    display: flex;
+    justify-content: space-around;
+}
+.loader{
+    margin-top: 12.93%;
 }
 .a1{
     display: none;
@@ -163,10 +183,23 @@ color:white;
     display: block;
 }
 .dash{
-    width: 100%;
-    height:100%;
-    background-color:#121926;
+    width: 98.8vw;
+    height:86.7vh;
+    background-color:#343a40;
 
+}
+.dash2{
+    width: 100vw;
+    height:86.7vh;
+    background-color:#343a40;
+   
+
+}
+.loadersearch{
+    margin-top: 10%;
+}
+.desc-hdr{
+    background-color: #343a40;
 }
 .font{
    
@@ -194,7 +227,14 @@ color:white;
 .colr{
     background-color: rgb(26, 31, 36);
     padding:120px;
-  
+    padding-bottom:0px ;
+    padding-top: 50px;
+}
+.colf{
+    background-color: #373e45;
+    padding:120px;
+    padding-bottom:0px ;
+    padding-top: 50px;
 }
 .colr-edu{
     padding:120px;
@@ -364,7 +404,7 @@ font-family: cursive;
 
 
 	.add_box{
-		@extend.box;
+		
 		background-color: #f9f9f9;
     }
 		.add_box__title{
@@ -578,12 +618,50 @@ height:2px;
     .hvr-csr-p:hover{
         cursor: pointer;
     }
+    .title-ad-span{
+        font-weight: bold;
+        font-size: 17px;
+        width:280px;
+        height:25%;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   margin-top: 100px;
+        
+    }
+    .stat-icn{
+        width:14vw;
+     
+        
+
+    }
+    .statss{
+        float: right;
+       
+        padding-top:15px;
+        font-family:serif;
+        font-size:25px;
+    }
+    #colrr-1{
+        color:#ffa0a0;
+    }
+    #colrr-2{
+        color:#ccffbd;
+    }
+    #colrr-3{
+        color:#95e1d3;
+    }
+    #colrr-4{
+        color:#f8dc81;
+    }
     .Sidebar{
         height: 83vh;
-            width: 200px;
+            width:16.67vw;
         background-color:rgb(79,87,94);
          }
-     
+     .admin-dash{
+         width:83.33vw;
+         height:83vh;
+         background-color:#f0f0f0;
+     }
       .list{
         height: 350px;
         padding: 0;
@@ -592,7 +670,7 @@ height:2px;
       }
      
       .rowss{
-        width: 200px;
+        width: 16.67vw;
         height: 70px;
    
         list-style-type: none;

@@ -20,9 +20,32 @@ function Header() {
   const [lgnlm, updatelgnlm] = useState(false);
   const [sgnup, updatesgnup] = useState(false);
   const[ress,upress]=useState([]);
-  let uname = localStorage.getItem("loginResponse");
-     let  lgnres = JSON.parse(uname);
+  
+  const [email, updateemail] = useState("");
+  const [pass, updatepass] = useState("");
+  const [isLoading, setLoading] = useState(false);  
+  const [isLoading1, setLoading1] = useState(false);
   const history=new useHistory();
+let lgnres1={
+  "userID":"",
+  "token":"",
+  "name":"unknown"
+}
+const[lgnres,uplgnres]=useState(lgnres1);
+useEffect(()=>
+{
+  let uname2 = localStorage.getItem("loginResponse");
+  if(uname2==null)
+  {
+  const loginResponse = JSON.stringify(lgnres1);
+  localStorage.setItem("loginResponse",loginResponse);
+  }
+  let uname = localStorage.getItem("loginResponse");
+  let lgnres2 = JSON.parse(uname);
+  uplgnres(lgnres2);
+},[])
+ 
+
   function modalOpen1(event) {
     event.preventDefault();
     updatelgn(true);
@@ -42,31 +65,21 @@ function Header() {
 
   }
 
-  const [email, updateemail] = useState("");
 
-  const [pass, updatepass] = useState("");
-let loginres={
-  "name":"unknown",
-  "email":"unknown@gmail.com"
-}
-const[abc,upav]=useState(loginres);
-  useEffect(()=>{
-      let username = localStorage.getItem("loginResponse");
-       loginres = JSON.parse(username);
-       upav(loginres);
-       console.log("dnsx");
-  },[])
 
   useEffect(()=>
   {
     console.log("dnsx");
-    VerifyTokenn(lgnres.userID,lgnres.token).then((response) => {
+    let uname4 = localStorage.getItem("loginResponse");
+  let lgnres7 = JSON.parse(uname4);
+    VerifyTokenn(lgnres7.userID,lgnres7.token).then((response) => {
       console.log("response");
       console.log(response);
       upress(response);
       if (response.statusCode === "200") {
         updateshow("a2");
         updateshow1("a1");
+
       }
       if (response.statusCode === "202") {
         updateshow("a1");
@@ -84,6 +97,7 @@ const[abc,upav]=useState(loginres);
   }
 
   function fetchData() {
+   setLoading(true);
     console.log("aagya");
     console.log(email+" "+pass)
     LoginPass(email, pass).then((response) => {
@@ -92,14 +106,17 @@ const[abc,upav]=useState(loginres);
       if (response.statusCode === "202") {
         alert(response.message);
         updateres(response.message);
+        setLoading(false);
       }
       if (response.statusCode === "200") {
-
+        setLoading(false);
         updatelgn(false);
         updateshow("a2");
         updateshow1("a1");
         const loginResponse = JSON.stringify(response.data);
       localStorage.setItem("loginResponse",loginResponse);
+      uplgnres(response.data);
+      console.log(loginResponse+"hdus");
       if(response.data.adminStatus===1)
       {
         history.push("/admin/sidebar");
@@ -107,11 +124,12 @@ const[abc,upav]=useState(loginres);
       }
 
     });
-    // updateres(Abc(email,pass));
+   
 
   }
   const [emailLm, updateemailLm] = useState("");
   const [otp, updateotp] = useState("");
+  
   function setemailLm(event) {
     updateemailLm(event.target.value);
   }
@@ -121,7 +139,6 @@ const[abc,upav]=useState(loginres);
   const [wait, updatewait] = useState(true);
   const [cname, updatecname] = useState("a1");
   function sendotp() {
-
     // MailLogin(emailLm).then((response)=>{
     //     console.log("response");
     //  console.log(response);
@@ -159,7 +176,7 @@ const[abc,upav]=useState(loginres);
     updatephn(event.target.value);
   }
   function fetchData1() {
-      console.log(emailsu+" "+name); 
+    setLoading1(true);
     SignUp(emailsu, name, passsu, phn).then((response) => {
       console.log("response");
       console.log(response);
@@ -167,7 +184,13 @@ const[abc,upav]=useState(loginres);
         alert(response.message);
         updateres(response.message);
       }
-
+      if (response.statusCode === "200") {
+        alert(response.message+" Login to Continue");
+        setLoading1(false);
+        updatesgnup(false);
+        updatelgn(true);
+      }
+  
     });
   }
   function openDashboard()
@@ -180,7 +203,7 @@ const[abc,upav]=useState(loginres);
   }
   function logOut()
   {
-    LogOutt(abc.userID).then((response) => {
+    LogOutt(lgnres.userID).then((response) => {
       console.log("response");
       console.log(response);
       if (response.statusCode === "200") {
@@ -210,9 +233,9 @@ const[abc,upav]=useState(loginres);
       <Nav.Link className={show} onClick={openDashboard}><span className="nav-hvr">DASHBOARD</span></Nav.Link>
       <span id="mt-1s" className={show}> 
     
-       <NavDropdown className={show} title={abc.name.substring(0,1)} id="basic-nav-dropdown" >
+       <NavDropdown className={show} title={lgnres.name.substring(0,1)} id="basic-nav-dropdown" >
       
-                <NavDropdown.Item className="nav-drpdwn1"><center>{abc.name}<br></br><span class="nav-drpdwn-spn">{abc.email}</span></center></NavDropdown.Item>
+                <NavDropdown.Item className="nav-drpdwn1"><center>{lgnres.name}<br></br><span class="nav-drpdwn-spn">{lgnres.email}</span></center></NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item className="drp-lg-out" onClick={logOut}><center>Log Out &nbsp;</center></NavDropdown.Item>
               </NavDropdown>
@@ -250,8 +273,8 @@ const[abc,upav]=useState(loginres);
           <Button variant="secondary" onClick={modalOpenlm}>
             Forgot Password
           </Button>
-          <Button variant="warning" onClick={fetchData}>
-          Login
+          <Button variant="warning" disabled={isLoading} onClick={fetchData}>
+      {isLoading ? 'Loading...' : 'Login'}
           </Button>
         </Modal.Footer>
 
@@ -324,7 +347,8 @@ const[abc,upav]=useState(loginres);
     <Form.Control type="text" placeholder="Enter Mobile No." onChange={setphn} />
   
   </Form.Group>
-</Form>       
+</Form>   
+{res}    
          </Modal.Body>
         <Modal.Footer className="ft">
          

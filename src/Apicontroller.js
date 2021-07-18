@@ -118,6 +118,7 @@ export function Imagepass()
        
      )
 }
+
 export function ImagePass(a,b,c,d,e,f,g,userID,token,category) {
     let formData = new FormData();
     console.log("hiii");
@@ -466,6 +467,86 @@ export function VerifyTokenn(userID,token)
 
  }
  return fetch(abc+"/verifyToken",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function PendingReq(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/totalPendingRequests",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function TotalRegisters(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/totalRegisters",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function TotalDonors(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/totalDonors",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function TotalDonorsToday(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/totalDonorsOnADay",req).then((data)=>
      
       data.json()
        

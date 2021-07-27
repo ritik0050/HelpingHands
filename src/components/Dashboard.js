@@ -43,12 +43,17 @@ function getData3() {
             }
         });
     }, [])
+    function OpenPage(itemID)
+   {
+    localStorage.setItem("itemID",itemID);
+   history.push("/user/requestpage");
+   }
     function imagedata1(m, n) {
         let i = m;
         let j = n;
         return (
             <>
-                <div class="box">
+                <div class="box" onClick={() => OpenPage(imgdta[i].getCategoryID[j].itemID)}>
 
                     <img src={z + "/" + imgdta[i].getCategoryID[j].square} className="img imghv" alt="" />
                     <div>

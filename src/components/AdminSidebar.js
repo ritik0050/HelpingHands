@@ -7,11 +7,14 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import NoEncryptionIcon from '@material-ui/icons/NoEncryption';
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import {LogOutt} from './../Apicontroller'
 
 function AdminSidebar() {
     const history = new useHistory();
     const [path, updatePath] = useState("");
+    const username = localStorage.getItem("loginResponse");
+    const loginres = JSON.parse(username);
     function openWindow1() {  
         updatePath("inbox");
         console.log(window.location.pathname);
@@ -28,12 +31,23 @@ function AdminSidebar() {
         history.push("/admin/sidebar/createadmin");
     }
     function openWindow4() {  
-        updatePath("users");
-        history.push("/admin/sidebar/users");
+        updatePath("userlist");
+        history.push("/admin/sidebar/userlist");
     }
     function openWindow5() { 
         updatePath("lockuser"); 
         history.push("/admin/sidebar/lockuser");
+    }
+    function openWindow6()
+    {
+        LogOutt(loginres.userID).then((response) => {
+            console.log("response");
+            console.log(response);
+            if (response.statusCode === "200") {
+              history.push("/");
+              
+            }
+        })
     }
     return (
         <div className="Sidebar">
@@ -51,13 +65,17 @@ function AdminSidebar() {
                     <div className="icon"><SupervisorAccountIcon></SupervisorAccountIcon></div>
                     <div className="title"> Create Admin</div>
                 </li>
-                <li className="rowss" id={path == "users" ? "active" : ""} onClick={openWindow4}>
+                <li className="rowss" id={path == "userlist" ? "active" : ""} onClick={openWindow4}>
                     <div className="icon"> <GroupAddIcon></GroupAddIcon></div>
                     <div className="title">List Of Users</div>
                 </li>
                 <li className="rowss" id={path == "lockuser" ? "active" : ""} onClick={openWindow5}>
                     <div className="icon"> <NoEncryptionIcon></NoEncryptionIcon></div>
                     <div className="title">Lock User</div>
+                </li>
+                <li className="rowss"  onClick={openWindow6}>
+                    <div className="icon"> <ExitToAppIcon></ExitToAppIcon></div>
+                    <div className="title">Log Out</div>
                 </li>
             </ul>
         </div>

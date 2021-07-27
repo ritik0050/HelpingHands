@@ -19,16 +19,18 @@ function AdminInbox()
     const[data,updateData]=useState([]);
     const[itemsss,updateitemss]=useState([]);
     const [abc, upabc] = useState(true);
+    const[isPending,updatePending]=useState(true);
+    const[isRejected,updateRejected]=useState(false);
+    const[isApproved,updateApproved]=useState(false);
     
 
     const username = localStorage.getItem("loginResponse");
     const loginres = JSON.parse(username);
-     console.log(data);
+   
    
       const [show, setShow] = useState(false);
-    
         const handleClose = () => setShow(false);
-       
+       const[a,upa]=useState("we");
     
 
      function AcceptReq(itemID)
@@ -37,7 +39,8 @@ function AdminInbox()
             console.log(response);
             if(response.statusCode==200)
             {
-                alert(itemID+" ACcepted");
+                alert(itemID+" Accepted");
+                best();
             }
             else 
             {
@@ -52,6 +55,7 @@ function AdminInbox()
             if(response.statusCode==200)
             {
                 alert(itemID+" Declined");
+               best();
             }
             else 
             {
@@ -65,7 +69,15 @@ function AdminInbox()
  updateitemss(itemss);
 
      }
-    useEffect(()=>
+    function best()
+    {
+      AdminInboxx(loginres.userID, loginres.token).then((response) => {
+        console.log(response);
+        updateData(response.data2);
+        upabc(false);
+})
+    }
+useEffect(()=>
     {
         AdminInboxx(loginres.userID, loginres.token).then((response) => {
             console.log(response);
@@ -73,31 +85,59 @@ function AdminInbox()
             upabc(false);
    })
     },[])
-  
+      function setcat(event)
+    {
+      let a=event.target.value;
+      if(a=="approve")
+      {
+        updatePending(false);
+        updateRejected(false);
+        updateApproved(true);
+      }
+      if(a=="reject")
+      {
+        updatePending(false);
+        updateRejected(true);
+        updateApproved(false);
+      }
+      if(a=="pending")
+      {
+        updatePending(true);
+        updateRejected(false);
+        updateApproved(false);
+      }
+    }
     return(
       <>
       { abc?<center><img src="../../assests/search.gif" className="loadersearch" width="150px" height="150px"></img></center>:
-        <div class="inbx-tbl ">
-      <br></br>
+        <div>
+      
 <div class="inbox-table">
     <Table responsive="md">
  
     <tbody>
         
-      <tr class="inbx-tr">
+      <tr class="inbx-pos">
         <th>Item Id</th>
         <th>Item Name</th>
         <th>Item Desc</th>
+        <th><select class="form-control slct" onChange={setcat}>
+        <option selected value="pending">Pending</option>
+          <option  value="approve">Approved</option>
+          <option value="reject">Rejected</option>
+          </select></th>
         <th>Date</th>
         <th></th>
       </tr>
-     
+     { isPending  ? <>
       {
           data.map((item)=>(
+        <>    { item.aprrovedStatus == 0 && item.expireStatus ==0 ?
           <tr class="inbx-tr">
               <td>{c++}</td>
               <td>{item.itemName}</td>
               <td>{item.itemDesc}</td>
+              <td><span class="pending">Pending</span></td>
               <td>{item.date.substring(0,10)}</td>
               <td width="50px"  >
             <Dropdown>
@@ -113,9 +153,72 @@ function AdminInbox()
 </Dropdown>
 </td>
           </tr>
-          ))
+          : <></>
+                 }
+                 </>     ))
       }
-      
+      </>
+      : <>
+      {
+         isRejected ? <><div></div>
+         {
+             data.map((item)=>(
+           <>    { item.aprrovedStatus == 0 && item.expireStatus ==1 ?
+             <tr class="inbx-tr">
+                 <td>{c++}</td>
+                 <td>{item.itemName}</td>
+                 <td>{item.itemDesc}</td>
+                 <td><span class="rejected">Rejected</span></td>
+                 <td>{item.date.substring(0,10)}</td>
+                 <td width="50px"  >
+               <Dropdown>
+     <Dropdown.Toggle variant="light" className="ndrptgl-bt bg-white border-0 p-0"  id="dropdown-basic">
+     <BiDotsVerticalRounded size="28px" color="black"/>
+     </Dropdown.Toggle>
+   
+     <Dropdown.Menu>
+       <Dropdown.Item onClick={() => AcceptReq(item.itemID)}>Accept</Dropdown.Item>
+       <Dropdown.Item onClick={() => ItemDescription(item)}>Description</Dropdown.Item>
+     </Dropdown.Menu>
+   </Dropdown>
+   </td>
+             </tr>
+             : <></>
+                    }
+                    </>     ))
+         }
+         </> : <>
+      {
+          data.map((item)=>(
+        <>    { item.aprrovedStatus == 1 && item.expireStatus ==0 ?
+          <tr class="inbx-tr">
+              <td>{c++}</td>
+              <td>{item.itemName}</td>
+              <td>{item.itemDesc}</td>
+              <td><span class="approved">Approved</span></td>
+              <td>{item.date.substring(0,10)}</td>
+              <td width="50px"  >
+            <Dropdown>
+  <Dropdown.Toggle variant="light" className="ndrptgl-bt bg-white border-0 p-0"  id="dropdown-basic">
+  <BiDotsVerticalRounded size="28px" color="black"/>
+  </Dropdown.Toggle>
+
+  <Dropdown.Menu>
+    
+    <Dropdown.Item onClick={() => DeclineReq(item.itemID)}>Decline</Dropdown.Item>
+    <Dropdown.Item onClick={() => ItemDescription(item)}>Description</Dropdown.Item>
+  </Dropdown.Menu>
+</Dropdown>
+</td>
+          </tr>
+          : <></>
+                 }
+                 </>     ))
+      }
+      </>
+      }
+      </>
+      }
 
     </tbody>
 

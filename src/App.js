@@ -21,6 +21,8 @@ import AdminLockUser from './components/AdminLockUser';
 import Furniture from './components/Furniture'
 import Clothes from './components/Clothes';
 import AdminDashboard from './components/AdminDashboard';
+import RequestPage from './components/RequestPage'
+import AdminUserList from './components/AdminUserList'
 
 
 
@@ -42,7 +44,9 @@ function App() {
   <Route path="/user/donate/clothes">
 <Clothes></Clothes>
   </Route>
-
+  <Route path="/user/requestpage">
+<RequestPage ></RequestPage>
+</Route>
   <Route path="/user/dashboard">
 <Dashboard ></Dashboard>
 </Route>
@@ -67,7 +71,6 @@ function App() {
 <Route path="/admin">
   <AdminHeader></AdminHeader>
 </Route>
-
 <Row>
   <Col md={2}>
 <Route path="/admin/sidebar">
@@ -87,12 +90,11 @@ function App() {
 <Route path="/admin/sidebar/dashboard">
   <AdminDashboard></AdminDashboard>
 </Route>
+<Route path="/admin/sidebar/userlist">
+  <AdminUserList></AdminUserList>
+</Route>
 </Col>
 </Row>
-
-
-
-
   </div>
   );
 }

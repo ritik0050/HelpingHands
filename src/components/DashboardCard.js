@@ -33,7 +33,7 @@ function DashboardCard(){
     }
     return(
         <div>
-            <br></br><br></br><br></br>
+            <br></br><br></br>
             <h2 className="heading"><font face="Times New Roman">DASHBOARD</font></h2>
             <br></br>
             <hr className="heading-hr"></hr>

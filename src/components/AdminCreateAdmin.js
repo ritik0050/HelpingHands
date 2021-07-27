@@ -86,17 +86,17 @@ function AdminCreateAdmin(){
     return (
         <>
          { abc ? <center><img src="../../assests/search.gif" className="loadersearch" width="150px" height="150px"></img></center> :
-        <div className="aca-tbl">
+        <div className="aca-tbl table-inbox">
             <Table responsive="md">
                 <tbody>
-                    <tr>
+                    <tr class="inbx-pos">
                         <th width="50px"></th>
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th></th>
-                        <th></th>
+                 
                     </tr>
                     { 
                     data.map((item)=>(
@@ -106,16 +106,19 @@ function AdminCreateAdmin(){
                         <td>{item.name}</td>
                         <td>{item.email}</td>
                         <td>{item.phone}</td>
+                        {   item.adminStatus == 0 ?
                         <td width="50px">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Create admin</Tooltip>}>
                                 <IoMdAdd className="aca-icn" onClick={() => create(item.userID,item.name)}></IoMdAdd>
                             </OverlayTrigger>
                         </td>
+                        :
                         <td width="50px">
                             <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Remove admin</Tooltip>}>
                                 <TiUserDelete className="aca-icn"  onClick={() => remove(item.userID,item.name)}></TiUserDelete>
                             </OverlayTrigger>
                         </td>
+}
                     </tr>))
              
                     }

@@ -24,21 +24,7 @@ function AdminLockUser(){
         })
     },[])
 
-    function lock(userid, name){
-        LockUser(loginres.userID,userid,loginres.token).then((response) => {
-            console.log(response);
-            if(response.statusCode==200)
-            {
-                alert(name + " is locked");
-            }
-            else 
-            {
-                alert("Some error occured. Please try again!");
-            }
-            history.push("/admin/sidebar/dashboard");
-            history.push("/admin/sidebar/lockuser");
-        });
-    }
+   
 
     function unlock(userid, name){
         UnlockUser(loginres.userID,userid,loginres.token).then((response) => {
@@ -59,10 +45,10 @@ function AdminLockUser(){
     return(
         <>
          { abc ? <center><img src="../../assests/search.gif" className="loadersearch" width="150px" height="150px"></img></center> :
-        <div className="aca-tbl">
+        <div className="aca-tbl inbox-table">
             <Table responsive="md">
                 <tbody>
-                    <tr>
+                    <tr class="inbx-pos">
                         <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -70,24 +56,28 @@ function AdminLockUser(){
                         <th></th>
                     </tr>
                     {data.map((item)=>(
+                        <>
+                       { item.activeStatus ? <div></div> :
+                            
                     <tr class="aca-tr">
                         <td>{c++}</td>
                         <td>{item.name}</td>
                         <td>{item.email}</td>
                         <td>{item.phone}</td>
                         <td width="50px">
-                            {
-                                item.activeStatus ?
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Lock User</Tooltip>}>
-                                    <BsFillUnlockFill onClick={() => lock(item.userID,item.name)} className="aca-icn"></BsFillUnlockFill>
-                                </OverlayTrigger>
-                                :
-                                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Unlock User</Tooltip>}>
+                           
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Unlock User</Tooltip>}>
                                     <BsLockFill onClick={() => unlock(item.userID,item.name)} className="aca-icn"></BsLockFill>
                                 </OverlayTrigger>
-                            }
+                                
+                                
+                            
                         </td>
-                    </tr>))}
+                    </tr>
+                            }
+                            </>
+                    
+                        ))}
                 </tbody>
             </Table>
         </div>

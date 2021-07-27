@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import './../global.css'
 import {link} from './../serverurl';
 import Row from 'react-bootstrap/Row'
 import Col from "react-bootstrap/Col"
-import { PanToolSharp } from '@material-ui/icons';
+
+import Link from 'react-router-dom'
 function Education() {
+    const history= new useHistory();
     console.log("dbhds");
     let edu=localStorage.getItem("imgsrc");
     let edudata=JSON.parse(edu);
     let m=link();
    console.log(m);
+   function OpenPage(itemID)
+   {
+  
+    localStorage.setItem("itemID",itemID);
+
+    history.push("/user/requestpage");
+
+ 
+   }
+
+   
     return (
         <div>
             <br></br>
@@ -24,7 +38,8 @@ function Education() {
              edudata.data[0].getCategoryID.map((pro) => (
                      
                         <Col md={3}>
-                        <div class="box">
+                         
+                        <div class="box" onClick={() => OpenPage(pro.itemID)}>
                   
                   <img src={m+"/" + pro.square} className="img imghv imghvrr" alt="" />
                   <div className="btm-mrgn">

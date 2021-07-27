@@ -96,6 +96,28 @@ data.json()
   
     
 }
+export function PhoneLogin(phone)
+{
+     let z={
+        "phone":phone,
+    }
+   
+    let req={
+        method:"POST",
+        body:JSON.stringify(z),
+        headers:{"Content-Type":"application/json",
+    "Bypass-Tunnel-Reminder":"abc"
+    }
+      }
+return fetch(abc+"/loginMail",req).then((data)=>
+        
+data.json()
+      
+    )
+   
+  
+    
+}
 
 export function Imagepass()
 {
@@ -547,6 +569,168 @@ export function TotalDonorsToday(userID,token)
 
  }
  return fetch(abc+"/totalDonorsOnADay",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function TotalApproved(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/totalApprovedRequests",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function TotalRejected(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/totalRejectedRequests",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function TotalLocked(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/totalLockedUsers",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function TotalActive(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/totalActiveUsers",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function FetchItemData(itemID)
+{
+    let q={
+        "itemID":itemID
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/fetchItemData",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function DonationsPerPerson(userID,token,donerID)
+{
+    let q={
+        "userID":userID,
+        "token":token,
+        "donorID":donerID
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/totalUserDonations",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function RequestItemm(itemID,userID,token)
+{
+    let q={
+        "itemID":itemID,
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/requestItem",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function CheckRequested(itemID,userID,token)
+{
+    let q={
+        "itemID":itemID,
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/checkRequest",req).then((data)=>
      
       data.json()
        

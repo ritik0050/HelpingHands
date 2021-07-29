@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ImagePass } from '../Apicontroller'
 import './.././../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownButton from 'react-bootstrap/DropdownButton'
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 
 
 function ImageUpload()
@@ -20,6 +20,7 @@ function ImageUpload()
   const [imgSrc3,updatefileurl3]=useState("../../assests/imagealt.jpeg");
   const [imgSrc4,updatefileurl4]=useState("../../assests/imagealt.jpeg");
   const [imgSrc5,updatefileurl5]=useState("../../assests/imagealt.jpeg");
+  const[isLoading,updateisLoading]=useState(false);
   var reader = new FileReader();
   function itemdesc(event) {
     itemdesc1(event.target.value);
@@ -62,18 +63,34 @@ function ImageUpload()
     const loginres = JSON.parse(username);
   function fileUpload(event) {
     event.preventDefault();
+    updateisLoading(true);
    ImagePass(a,b,c,d,e,f,g,loginres.userID,loginres.token,category).then(response => {
         console.log(response);
         if(response.data.statusCode==="200")
         {
-          alert("donated");
+          updatemsgs1("You have successfully donated.");
+          updateshowmsg1(true);
         }
+        else
+        {
+          updatemsgs1("Try Again");
+          updateshowmsg1(true);
+        }
+        updateisLoading(false);
       })
       .catch(error => {
         console.log(error);
       });
   }
-
+  const[msgs1,updatemsgs1]=useState("");
+  const[showmsg1,updateshowmsg1]=useState(false);   
+function close2()
+      {
+        updateshowmsg1(false);
+      }
+      function msgbtn1(){
+          close2();
+        }
   return(
     <div>
        <br></br>
@@ -102,13 +119,7 @@ function ImageUpload()
   <label for="formGroupExampleInput" class="form-label">Item Description</label>
   <textarea rows="4" class="form-control" id="formGroupExampleInput" placeholder="Item Description" onChange={itemdesc}></textarea>
 </div>
-{/* <div class="col-md-2 marginn">
-<DropdownButton id="dropdown-basic-button" variant="secondary" title="Category" onChange={selectCategory}>
-  <Dropdown.Item value="1">Education</Dropdown.Item>
-  <Dropdown.Item value="2">Furniture</Dropdown.Item>
-  <Dropdown.Item value="3">Clothes</Dropdown.Item>
-</DropdownButton>
-</div> */}
+
 </div>
 <div className="row">
  
@@ -159,14 +170,23 @@ function ImageUpload()
 
 <div class="row mt-5">
 
-<button type="button" class="btn btn-warning wui-save" data-dismiss="modal" onClick={fileUpload}>Donate</button>
+<button type="button" class="btn btn-warning wui-save" data-dismiss="modal" disabled={isLoading} onClick={fileUpload}>{isLoading ? <>Donating...</>:<>Donate</> }</button>
 
 </div>
 
 
  </div>
-
-
+{/* ================================================ */}
+<Modal show={showmsg1} onHide={close2}>
+     <Modal.Body class="msg-mdl-bdy">
+     <div id="colrr-2" class="mbb-mdl">{msgs1}</div>  
+    
+     <div class="btn-msg-mdl"><Button variant="warning" class="btn btn-warning" onClick={msgbtn1}>
+         OK
+    </Button>
+    </div>
+     </Modal.Body>
+      </Modal>
 </div>
     );
 }

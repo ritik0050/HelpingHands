@@ -5,12 +5,13 @@ import Button from 'react-bootstrap/Button'
 import {link} from './../serverurl'
 import Row from 'react-bootstrap/Row'
 import Col from "react-bootstrap/Col"
-import { grey } from "@material-ui/core/colors";
 import { RemoveItem } from "../Apicontroller";
+import Modal from 'react-bootstrap/Modal'
 function UserItem()
 {
     let m=link();
     const[data,updatedata]=useState([]);
+  
     const username = localStorage.getItem("loginResponse");
     const loginres = JSON.parse(username);
     useEffect(()=>
@@ -23,7 +24,7 @@ function UserItem()
     },[])
     function approvalStatus(as,es)
     {
-        console.log(as+"bhaisaab"+es);
+        
         if(as==0 && es==0)
         {
             
@@ -52,22 +53,45 @@ function UserItem()
            
         }
     }
-    function Removeitemm(itemID)
+    const[msgs1,updatemsgs1]=useState("");
+    const[showmsg1,updateshowmsg1]=useState(false);   
+function close2()
+        {
+          updateshowmsg1(false);
+        }
+        function msgbtn1(){
+            close2();
+          }
+    function Removeitemm(itemID,itemName)
     {
+        
         RemoveItem(itemID,loginres.userID,loginres.token).then((response) => {
             console.log(response);
-            if(response.statusCode==200)
+            if(response.statusCode=="200")
             {
-                alert(itemID+" Removed");
+                updatemsgs1(itemName+" removed.");
+                updateshowmsg1(true);
             }
             else 
             {
-                alert("try again");
+                updatemsgs1("try again");
+                updateshowmsg1(true);
             }
+       
+            rerun();
    })
+ function rerun()
+ {
+    GetUserItem(loginres.userID, loginres.token).then((response) => {
+        console.log(response);
+        updatedata(response.data);
+        
+}) 
+ }
     }
     return(
-        <div class="colr-uit">
+      
+        <div class="colr-uit" >
             <h2 className="heading"><font face="Times New Roman">My Items</font></h2>
             <br></br><br></br>
              <Row>
@@ -85,10 +109,7 @@ function UserItem()
                   <Card.Title class="itemname">{item.itemName}</Card.Title>
                   <Card.Title class="itemdesc"><span>{item.itemDesc}</span></Card.Title>
                  <Card.Title class="status">{approvalStatus(item.aprrovedStatus,item.expireStatus)}</Card.Title>
-                  
-        
-
-                  <Button variant="outline-warning" onClick={() => Removeitemm(item.itemID)} style={{ width: '9rem'}}>Remove</Button>
+                  <Button variant="outline-warning" onClick={() => Removeitemm(item.itemID,item.itemName)} style={{ width: '9rem'}}>Remove</Button>
                   </center>
                 </Card.Body>
               </Card>
@@ -97,7 +118,19 @@ function UserItem()
             ))
      }
      </Row>
+     {/* Modal */}
+     <Modal show={showmsg1} onHide={close2}>
+     <Modal.Body class="msg-mdl-bdy">
+     <div id="colrr-2" class="mbb-mdl">{msgs1}</div>  
+    
+     <div class="btn-msg-mdl"><Button variant="warning" class="btn btn-warning" onClick={msgbtn1}>
+         OK
+    </Button>
+    </div>
+     </Modal.Body>
+      </Modal>
         </div>
+       
     )
 }
 export default UserItem;

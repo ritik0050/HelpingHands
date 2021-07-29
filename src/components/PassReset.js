@@ -4,11 +4,14 @@ import Col from 'react-bootstrap/Col';
 import './../global.css';
 import { UpdatePassInfo } from "../Apicontroller";
 import { useState } from "react";
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 function PassReset(){
     const[newPass,updateNewPass]=useState("");
     const[oldPass,updateOldPass]=useState("");
     const username = localStorage.getItem("loginResponse");
     const loginres = JSON.parse(username);
+    const[isLoading,updateisLoading]=useState(false);
     function setNewPass(event)
     {
         updateNewPass(event.target.value);
@@ -18,19 +21,91 @@ function PassReset(){
         updateOldPass(event.target.value);
     }
     function Update()
-    {
+    {  updateisLoading(true);
        UpdatePassInfo(loginres.userID,loginres.token,newPass,oldPass).then((response) => {
         console.log(response);
         if(response.statusCode==200)
         {
-            alert("Updated Successfully");
+          
+            updatemsgs1(response.message);
+          updateshowmsg1(true);
         }
         else 
         {
-            alert("try again");
+            updatemsgs1(response.message);
+            updateshowmsg1(true);
         }
+        updateisLoading(false);
 })
     }
+    const[msgs,updatemsgs]=useState("");
+    const[showmsg,updateshowmsg]=useState(false);
+    function close1()
+    {
+      updateshowmsg(false);
+    }
+    function msgbtn(){
+        close1();
+      }
+function validateEmail(event)
+{
+  var a=event.target.value;
+  if(a=="")
+  {
+
+  }
+  else{
+  var reg=/^(.+)@(.+)$/;
+  var test=reg.test(a);
+  if(!test)
+  {
+    updatemsgs1("Enter a valid email");
+    updateshowmsg1(true);
+  }
+}
+}
+function validateNumber(event){
+  var a=event.target.value;
+  if(a=="")
+  {
+
+  }
+  else{
+  var reg=/[0-9]{10}/;
+  var test=reg.test(a);
+  if(!test)
+  {
+    updatemsgs1("Enter a valid phone number.");
+    updateshowmsg1(true);
+  }
+}
+}
+    function validatePassword(event)
+{
+  var a=event.target.value;
+  if(a=="")
+  {
+
+  }
+  else{
+  var reg=/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()]).{8,32}$/;
+  var test=reg.test(a);
+  if(!test)
+  {
+   updatemsgs("Password must contain at least one lowercase, one uppercase, one special character and one numeric digit with length 8 to 20.");
+   updateshowmsg(true);
+  }
+}
+}
+    const[msgs1,updatemsgs1]=useState("");
+    const[showmsg1,updateshowmsg1]=useState(false);   
+function close2()
+        {
+          updateshowmsg1(false);
+        }
+        function msgbtn1(){
+            close2();
+          }
     return(
         <div>
             <Row>
@@ -52,7 +127,7 @@ function PassReset(){
                         </div>
                         <div>
                             <h5>Name</h5>
-                            <input className="uui-input" type="password" placeholder="Enter your old password" onChange={setOldPass}></input>
+                            <input className="uui-input" type="password"  placeholder="Enter your old password" onChange={setOldPass}></input>
                         </div>
                     </div>
                     <div className="uui-input-div uui-two">
@@ -61,15 +136,37 @@ function PassReset(){
                         </div>
                         <div>
                             <h5>Email</h5>
-                            <input className="uui-input" type="password" placeholder="Enter your new password" onChange={setNewPass}></input>
+                            <input className="uui-input" type="password" placeholder="Enter your new password" onBlur={validatePassword} onChange={setNewPass}></input>
                         </div>
                     </div>
-                    <input type="button" value="RESET PASSWORD" className="uui-btn " onClick={Update}></input>
+                    <input type="button" value={isLoading ? "Updating..." : "Reset Password" } disabled={isLoading} className="uui-btn " onClick={Update}></input>
                     </form>
                 </div>
             </div>
             </Col>
             </Row>
+            {/* ============================================= */}
+            <Modal show={showmsg1} onHide={close2}>
+     <Modal.Body class="msg-mdl-bdy">
+     <div id="colrr-2" class="mbb-mdl">{msgs1}</div>  
+    
+     <div class="btn-msg-mdl"><Button variant="warning" class="btn btn-warning" onClick={msgbtn1}>
+         OK
+    </Button>
+    </div>
+     </Modal.Body>
+      </Modal>
+ {/* Message Modal */}
+ <Modal show={showmsg} onHide={close1}>
+     <Modal.Body class="msg-bdy">
+     <div id="colrr-2" class="mbb">{msgs}</div>  
+    
+     <div class="btn-msg"><Button variant="warning" class="btn btn-warning" onClick={msgbtn}>
+         OK
+    </Button>
+    </div>
+     </Modal.Body>
+      </Modal>
         </div>
     );
 }

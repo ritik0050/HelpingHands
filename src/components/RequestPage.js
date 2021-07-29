@@ -11,7 +11,7 @@ function RequestPage()
     const [abc, upabc] = useState(true);
     const[data1,updatedata]=useState("");
     const[dsbl,updatedsbl]=useState(false);
-    const[req,updateRequested]=useState("0");
+    const[req,updateRequested]=useState("Request Item");
     let itemid=localStorage.getItem("itemID");
     const[isLoading,upLoading]=useState(false);
     const username = localStorage.getItem("loginResponse");
@@ -54,7 +54,15 @@ function RequestPage()
         updatedsbl(true);
         RequestItemm(itemid,loginres.userID,loginres.token).then((response) => {
             console.log(response);
+            if(response.statusCode=="200")
+            {
            updatemsgs1(response.message);
+            }
+            else
+            {
+           updatemsgs1("Please Login to Continue.");
+            }
+            
            updateshowmsg1(true);
            upLoading(false);
            checkagain();

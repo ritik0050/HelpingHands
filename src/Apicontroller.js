@@ -736,3 +736,87 @@ export function CheckRequested(itemID,userID,token)
        
      )
 }
+export function UserInbox(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/fetchUserInbox",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function AcceptUserReq(userID,token,itemID,donorID)
+{
+    let q={
+        "userID":userID,
+        "token":token,
+        "itemID":itemID,
+        "donorID":donorID
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/acceptUserInboxItem",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function RejectUserReq(userID,token,itemID,donorID)
+{
+    let q={
+        "userID":userID,
+        "token":token,
+        "itemID":itemID,
+        "id":donorID
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/rejectUserInboxItem",req).then((data)=>
+     
+      data.json()
+       
+     )
+}
+export function UserOutbox(userID,token)
+{
+    let q={
+        "userID":userID,
+        "token":token
+    }
+    let req={
+     method:"POST",
+     body:JSON.stringify(q),
+     headers:{"Content-Type":"application/json",
+ "Bypass-Tunnel-Reminder":"abc"
+ }
+
+ }
+ return fetch(abc+"/fetchUserOutbox",req).then((data)=>
+     
+      data.json()
+       
+     )
+}

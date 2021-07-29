@@ -23,7 +23,7 @@ import Clothes from './components/Clothes';
 import AdminDashboard from './components/AdminDashboard';
 import RequestPage from './components/RequestPage'
 import AdminUserList from './components/AdminUserList'
-
+import Table from 'react-bootstrap/Table';
 
 
 function App() {
@@ -71,8 +71,9 @@ function App() {
 <Route path="/admin">
   <AdminHeader></AdminHeader>
 </Route>
+
 <Row>
-  <Col md={2}>
+ <Col md={2}>
 <Route path="/admin/sidebar">
   <AdminSidebar></AdminSidebar>
 </Route>
@@ -95,6 +96,7 @@ function App() {
 </Route>
 </Col>
 </Row>
+
   </div>
   );
 }

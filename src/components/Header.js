@@ -37,7 +37,7 @@ function Header() {
   const [isLoadingVM, setLoadingVM] = useState(false);
   const history=new useHistory();
 let lgnres1={
-  "userID":"",
+  "userID":"unknown@gmail.com",
   "token":"",
   "name":"unknown"
 }
@@ -336,7 +336,7 @@ function msgbtn1(){
       <Nav.Link className={show} onClick={openDashboard}><span className="nav-hvr">DASHBOARD</span></Nav.Link>
       <span id="mt-1s" className={show}> 
     
-       <NavDropdown className={show} title={lgnres.name.substring(0,1)} id="basic-nav-dropdown" >
+       <NavDropdown className={show}   title={lgnres.name.substring(0,1).toUpperCase()} id="basic-nav-dropdown" >
       
                 <NavDropdown.Item className="nav-drpdwn1"><center>{lgnres.name}<br></br><span class="nav-drpdwn-spn">{lgnres.email}</span></center></NavDropdown.Item>
                 <NavDropdown.Divider />
@@ -481,10 +481,10 @@ function msgbtn1(){
       {/* ========= */}
       <Modal show={showmsg1} onHide={close2}>
      <Modal.Body class="msg-mdl-bdy">
-     <div id="colrr-2" class="mbb-mdl">{msgs1}</div>  
+     <div id="colrr-z" class="mbb-mdl">{msgs1}</div>  
     
-     <div class="btn-msg-mdl"><Button variant="warning" class="btn btn-warning" onClick={msgbtn1}>
-         OK
+     <div class="btn-msg-mdl"><Button variant="dark" class="btn btn-dark" onClick={msgbtn1}>
+         Okay
     </Button>
     </div>
      </Modal.Body>

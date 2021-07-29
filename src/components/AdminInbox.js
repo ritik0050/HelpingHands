@@ -8,6 +8,7 @@ import { AdminDecline } from '../Apicontroller';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button'
 import { link } from '../serverurl';
 import Row from 'react-bootstrap/Row'
 import Col from "react-bootstrap/Col"
@@ -23,7 +24,8 @@ function AdminInbox()
     const[isRejected,updateRejected]=useState(false);
     const[isApproved,updateApproved]=useState(false);
     
-
+    const[isClicked,updateisClicked]=useState("");
+    const[cls,upcls]=useState("img-aca-i")
     const username = localStorage.getItem("loginResponse");
     const loginres = JSON.parse(username);
    
@@ -34,33 +36,44 @@ function AdminInbox()
     
 
      function AcceptReq(itemID)
-     {
+     {      updateisClicked("freeze");
+     upcls("img-aca");
         AdminAccept(itemID,loginres.userID,loginres.token).then((response) => {
             console.log(response);
             if(response.statusCode==200)
             {
-                alert(itemID+" Accepted");
+              updatemsgs1(response.data.itemName+" has been approved.");
+              updateshowmsg1(true);
                 best();
             }
             else 
             {
-                alert("try again");
+              updatemsgs1("Some error occured. Please try again!");
+              updateshowmsg1(true);
             }
+            updateisClicked();
+            upcls("img-aca-i");
    })
      }
      function DeclineReq(itemID)
      {
+      updateisClicked("freeze");
+      upcls("img-aca");
         AdminDecline(itemID,loginres.userID,loginres.token).then((response) => {
             console.log(response);
             if(response.statusCode==200)
             {
-                alert(itemID+" Declined");
+              updatemsgs1(response.data.itemName+" has been rejected.");
+              updateshowmsg1(true);
                best();
             }
             else 
             {
-                alert("try again");
+              updatemsgs1("Some error occured. Please try again!");
+              updateshowmsg1(true);
             }
+            updateisClicked("");
+            upcls("img-aca-i");
    })
      }
      function ItemDescription(itemss)
@@ -107,12 +120,21 @@ useEffect(()=>
         updateApproved(false);
       }
     }
+    const[msgs1,updatemsgs1]=useState("");
+    const[showmsg1,updateshowmsg1]=useState(false);   
+function close2()
+        {
+          updateshowmsg1(false);
+        }
+        function msgbtn1(){
+            close2();
+          }
     return(
       <>
       { abc?<center><img src="../../assests/search.gif" className="loadersearch" width="150px" height="150px"></img></center>:
         <div>
       
-<div class="inbox-table">
+<div class="inbox-table" id={isClicked}>
     <Table responsive="md">
  
     <tbody>
@@ -224,6 +246,7 @@ useEffect(()=>
 
   </Table>
   </div>
+  <div class={cls}><img src="../../assests/details.gif" width="150px" height="150px"/></div>
   {/* ===============Descrption MODAL================== */}
   <Modal show={show}  onHide={handleClose} >
         <Modal.Header closeButton className="hd">
@@ -264,7 +287,17 @@ useEffect(()=>
         </div>
         
       </div></Modal.Body>
-  
+      </Modal>
+      {/* ==================================================== */}
+      <Modal show={showmsg1} onHide={close2}>
+     <Modal.Body class="msg-mdl-bdy">
+     <div id="colrr-2" class="mbb-mdl">{msgs1}</div>  
+    
+     <div class="btn-msg-mdl"><Button variant="warning" class="btn btn-warning" onClick={msgbtn1}>
+         OK
+    </Button>
+    </div>
+     </Modal.Body>
       </Modal>
   </div>
   }

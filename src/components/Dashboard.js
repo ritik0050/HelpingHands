@@ -15,21 +15,21 @@ import Loader from 'react-loaders'
 function Dashboard() {
     let z = link();
 
-    let loader = <Loader type="ball-clip-rotate-pulse" />
+
     const [imgdta, updateimgdata] = useState([]);
     const [abc, upabc] = useState(true);
     var x;
 
     const history = new useHistory();
     function getData1() {
-            history.push("/user/donate/education");
+        history.push("/user/donate/education");
     }
     function getData2() {
         history.push("/user/donate/furniture");
-}
-function getData3() {
-    history.push("/user/donate/clothes");
-}
+    }
+    function getData3() {
+        history.push("/user/donate/clothes");
+    }
     useEffect(() => {
         upabc(true);
         Imagepass().then((response) => {
@@ -38,16 +38,15 @@ function getData3() {
             let imgJson = JSON.stringify(response);
             localStorage.setItem("imgsrc", imgJson);
             updateimgdata(response.data);
-            if(response.statusCode==200){
-            upabc(false);
+            if (response.statusCode == 200) {
+                upabc(false);
             }
         });
     }, [])
-    function OpenPage(itemID)
-   {
-    localStorage.setItem("itemID",itemID);
-   history.push("/user/requestpage");
-   }
+    function OpenPage(itemID) {
+        localStorage.setItem("itemID", itemID);
+        history.push("/user/requestpage");
+    }
     function imagedata1(m, n) {
         let i = m;
         let j = n;
@@ -88,7 +87,7 @@ function getData3() {
     }
     return (
         <div>
-            {abc ?<div className="dash2"> <center><img src="../assests/loader.gif" className="loader" width="150px" height="150px"></img></center></div> : (
+            {abc ? <div className="dash2"> <center><img src="../assests/loader.gif" className="loader" width="150px" height="150px"></img></center></div> : (
 
                 <div className="dash">
 

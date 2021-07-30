@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { IoIosStats } from "react-icons/io";
-import {useHistory} from 'react-router-dom'
-import { PendingReq, TotalRegisters, TotalDonors, TotalDonorsToday ,TotalLocked ,TotalRejected ,TotalApproved , TotalActive} from "../Apicontroller";
+import { useHistory } from 'react-router-dom'
+import { PendingReq, TotalRegisters, TotalDonors, TotalDonorsToday, TotalLocked, TotalRejected, TotalApproved, TotalActive } from "../Apicontroller";
 function AdminDashboard() {
     const username = localStorage.getItem("loginResponse");
     const loginres = JSON.parse(username);
@@ -21,90 +21,80 @@ function AdminDashboard() {
     const [rejectuser, updateruser] = useState(true);
     const [lockeduser, updateluser] = useState(true);
     const [activeuser, updateauser] = useState(true);
-    const history=new useHistory();
+    const history = new useHistory();
     useEffect(() => {
         PendingReq(loginres.userID, loginres.token).then((response) => {
-            if(response.statusCode=="200")
-            {
-            uppending(response.message);
-            updatependingloader(false);
+            if (response.statusCode == "200") {
+                uppending(response.message);
+                updatependingloader(false);
             }
         })
     }, [])
     useEffect(() => {
         TotalActive(loginres.userID, loginres.token).then((response) => {
-            if(response.statusCode=="200")
-            {
-            upactve(response.message);
-            updateauser(false);
+            if (response.statusCode == "200") {
+                upactve(response.message);
+                updateauser(false);
             }
         })
     }, [])
     useEffect(() => {
         TotalRegisters(loginres.userID, loginres.token).then((response) => {
-            if(response.statusCode=="200")
-            {
-            upregister(response.message);
-            updateuserloader(false);
+            if (response.statusCode == "200") {
+                upregister(response.message);
+                updateuserloader(false);
             }
         })
     }, [])
     useEffect(() => {
         TotalDonorsToday(loginres.userID, loginres.token).then((response) => {
-            if(response.statusCode=="200"){
-            updonorstoday(response.message);
-            updatedtloader(false);
+            if (response.statusCode == "200") {
+                updonorstoday(response.message);
+                updatedtloader(false);
             }
         })
     }, [])
     useEffect(() => {
         TotalDonors(loginres.userID, loginres.token).then((response) => {
-            if(response.statusCode=="200")
-            {
-            updonors(response.message);
-            updatedonorloader(false);
+            if (response.statusCode == "200") {
+                updonors(response.message);
+                updatedonorloader(false);
             }
         })
     }, [])
     useEffect(() => {
         TotalLocked(loginres.userID, loginres.token).then((response) => {
-            if(response.statusCode=="200")
-            {
-            uplock(response.message);
-            updateluser(false);
+            if (response.statusCode == "200") {
+                uplock(response.message);
+                updateluser(false);
             }
         })
     }, [])
     useEffect(() => {
         TotalApproved(loginres.userID, loginres.token).then((response) => {
-            if(response.statusCode=="200")
-            {
-            upaprv(response.message);
-            updateapproveuser(false);
+            if (response.statusCode == "200") {
+                upaprv(response.message);
+                updateapproveuser(false);
             }
         })
     }, [])
     useEffect(() => {
         TotalRejected(loginres.userID, loginres.token).then((response) => {
-            if(response.statusCode=="200")
-            {
-            uprej(response.message);
-            updateruser(false);
+            if (response.statusCode == "200") {
+                uprej(response.message);
+                updateruser(false);
             }
         })
     }, [])
-     function openTab1()
-     {
-         history.push("inbox");
-     }
-     function openTab2()
-     {
+    function openTab1() {
+        history.push("inbox");
+    }
+    function openTab2() {
         history.push("userlist");
-     }
-     function openTab3()
-     {
+    }
+    function openTab3() {
         history.push("lockuser");
-     }
+    }
     return (
         <div class="admin-dash">
             <br></br>
@@ -151,7 +141,7 @@ function AdminDashboard() {
                 </div>
             </div>
             <br></br>
-<br></br>            <div class="prnt-dash">
+            <br></br>            <div class="prnt-dash">
 
                 <div class="stat-dash" onClick={openTab3}>
                     <span class="title-ad-span" id="colrr-5" >TOTAL LOCKED USERS</span>
@@ -162,7 +152,7 @@ function AdminDashboard() {
                         }
                     </div>
                 </div>
-              
+
                 <div class="stat-dash" onClick={openTab1}>
                     <span class="title-ad-span" id="colrr-6" >TOTAL APPROVED REQUESTS</span>
                     <br></br><br></br>
@@ -193,7 +183,7 @@ function AdminDashboard() {
 
                         }</div>
                 </div>
-              
+
             </div>
         </div>
     )
